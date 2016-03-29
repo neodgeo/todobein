@@ -2,8 +2,11 @@
 <html>
     <head>
         <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+        <script src='https://apis.google.com/js/platform.js'></script>
+        <meta name="google-signin-client_id" content="875299489419-hjuipbrf1ar4fnmn6niq5bbvpo44c6kh.apps.googleusercontent.com">
     </head>
     <body>
+    	<div class="g-signin2" data-onsuccess="onSignIn"></div>
         <form id="formulaire">
             <input id="saisie">
         </form>
@@ -11,6 +14,15 @@
         <script>
             // cette version utilise innerHTML pour gérer le DOM.
             // référence vers notre back-end firebase
+            function onSignIn(googleUser) {
+			  var profile = googleUser.getBasicProfile();
+			  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+			  console.log('Name: ' + profile.getName());
+			  console.log('Image URL: ' + profile.getImageUrl());
+			  console.log('Email: ' + profile.getEmail());
+
+			  startApp();
+			}
             function startApp (){
 	            var dbUrl = 'https://flickering-inferno-5369.firebaseIO.com'; // URL fournie lors de la 
 	            var myDataRef = new Firebase(dbUrl);
@@ -60,5 +72,6 @@
 	            }
             }
         </script>
+        
     </body>
 </html>
